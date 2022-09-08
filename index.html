@@ -1,0 +1,560 @@
+<head>
+  <title>Capybara</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+  <meta itemprop="name" content="Capybara">
+  <meta itemprop="description" content="desc">
+  <meta property="og:title" content="Capybara">
+  <meta property="og:description" content="desc">
+  <meta property="og:type" content="website">
+
+  <style>
+    @font-face {
+      font-family: Whitney;
+      font-style: normal;
+      font-weight: 400;
+      src: url(/whitney.woff2) format("woff2")
+    }
+
+    @font-face {
+      font-family: Ginto;
+      font-style: normal;
+      font-weight: 500;
+      src: url(/ginto.woff2) format("woff2")
+    }
+
+    :root {
+      --font-normal: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-header: Ginto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-mono: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+
+      --header-primary: #ffffff;
+      --header-secondary: #b9bbbe;
+
+      /* --text-normal: #dcddde;
+      --text-muted: #a3a6aa; */
+
+      --text-normal: #ffffff;
+      --text-muted: #dcddde;
+
+      --accent: #dda044;
+      --accent-light: #f8d593;
+      --accent-dark: #af7e24;
+
+      --background-primary: #101418;
+      --background-secondary: #202428;
+      --background-header: 0, 4, 8;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--background-primary);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-weight: 500;
+      font-family: var(--font-header);
+      font-size: 32px;
+
+      color: var(--header-primary);
+
+      margin: 0;
+    }
+
+    h2 {
+      font-weight: 500;
+      font-family: var(--font-header);
+      font-size: 28px;
+
+      color: var(--header-primary);
+
+      margin-top: 80px;
+      margin-bottom: 8px;
+    }
+
+    header {
+      width: 100%;
+      height: 72px;
+
+      padding: 12px 24px;
+
+      background: rgba(var(--background-header), 0.6);
+      box-shadow: 0 8px 16px rgb(0 0 0 / 24%);
+      backdrop-filter: blur(2px) saturate(0.5);
+
+      display: flex;
+      align-items: baseline;
+
+      position: sticky;
+      top: 0;
+    }
+
+    header > h1 {
+      color: var(--accent-light);
+    }
+
+    header code {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      color: var(--text-muted);
+    }
+
+    header > div {
+      flex-grow: 1;
+      margin-left: 4vw;
+
+      display: flex;
+      gap: 50px;
+
+      /* justify-content: flex-end; */
+    }
+
+    header a {
+      color: var(--text-normal);
+      text-decoration: none;
+
+      font-weight: 500;
+      font-family: var(--font-header);
+      font-size: 24px;
+
+      transition: .5s color;
+    }
+
+    a:after {
+      content: '';
+      display: block;
+      margin: auto;
+      margin-top: 2px;
+      height: 2px;
+      width: 0px;
+      background: transparent;
+      transition: width .5s ease, background-color .5s ease;
+    }
+
+    header a:hover {
+      color: var(--header-primary);
+    }
+
+    a:hover:after {
+      width: 100%;
+      background: var(--accent-light);
+    }
+
+    a:active:after {
+      width: 100%;
+      background: var(--accent);
+    }
+
+    article {
+      padding: 20px 60px;
+      width: 100%;
+      max-width: 2000px;
+      margin: auto;
+    }
+
+    .tagline {
+    }
+
+    p {
+      font-size: 24px;
+      font-family: var(--font-normal);
+      color: var(--text-muted);
+
+      margin-bottom: 40px;
+      margin-top: 16px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 80px;
+
+      margin-top: 12px;
+      margin-bottom: 40px;
+    }
+
+    .columns {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards > div {
+      background: var(--background-secondary);
+      box-shadow: 0 8px 16px rgb(0 0 0 / 24%);
+      padding: 16px;
+
+      display: flex;
+
+      border-radius: 8px;
+
+      flex-direction: column;
+    }
+
+    .cards > div svg {
+      width: 32px;
+      height: 32px;
+      margin-top: 5px;
+    }
+
+    .cards > div svg.stroke path {
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 6px;
+    }
+
+    .cards > div > h1 {
+      font-family: var(--font-header);
+      color: var(--header-primary);
+
+      display: flex;
+      gap: 12px;
+
+      align-items: center;
+    }
+
+    .cards > div > p {
+      font-family: var(--font-normal);
+      color: var(--text-normal);
+      font-size: 22px;
+
+      margin-top: 12px;
+      margin-bottom: 10px;
+    }
+
+    .cards > span {
+      color: var(--text-muted);
+      font-family: var(--font-header);
+      font-size: 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+    }
+
+    .stats > h2 {
+      margin: 0;
+      color: var(--text-muted);
+      font-weight: 400;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .stats > h2:not(:last-child) {
+      margin-bottom: 40px;
+    }
+
+    .stats span {
+      font-weight: 600;
+      color: var(--accent-light);
+    }
+
+    .stats svg {
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
+    }
+
+    .stats [id^="stat_"] {
+      margin: 0 8px;
+    }
+
+    /* .stats::before {
+      content: '';
+      width: 80%;
+      height: 2px;
+      background: var(--background-secondary);
+      margin: auto;
+
+      position: relative;
+      top: -4vw;
+    }
+
+    article > :nth-last-child(2) {
+      margin-bottom: 4vw;
+    } */
+
+    a {
+      color: var(--accent-light);
+      text-decoration: none;
+      font-weight: 600;
+
+      display: inline-block;
+    }
+
+    ::-webkit-scrollbar {
+      width: 16px;
+    }
+
+    ::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #000408;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #303438;
+    }
+
+    ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
+      border: 4px solid transparent;
+      background-clip: padding-box;
+      border-radius: 12px;
+    }
+
+    #caps {
+      float: right;
+      font-size: 24px;
+      color: var(--text-muted);
+
+      cursor: pointer;
+      user-select: none;
+    }
+
+    video {
+      width: 80%;
+      display: block;
+      margin: auto;
+
+      background: var(--background-secondary);
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 0 8px 16px rgb(0 0 0 / 24%);
+    }
+
+    table {
+      background: #202428;
+      color: var(--header-primary);
+      font-family: var(--font-header);
+
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .compat tr:first-child {
+      background: #101418;
+      font-size: 20px;
+    }
+
+    .compat tr:first-child > td:nth-child(2), .compat tr:first-child > td:nth-child(3) {
+      width: 160px;
+    }
+
+    .compat tr {
+      border: 2px solid var(--header-secondary);
+      font-size: 18px;
+    }
+
+    .compat td {
+      padding: 4px;
+      border: 2px solid black;
+    }
+
+    .compat td:not(:first-child) {
+      text-align: center;
+    }
+
+    td.most {
+      background: #97ca00;
+    }
+
+    td.some {
+      background: #dfb317;
+    }
+
+    td.initial {
+      background: #fe7d37;
+    }
+
+    td.unsupported {
+      background: #e05d44;
+    }
+
+    .index {
+      margin-bottom: 20px;
+    }
+
+    .index td {
+      padding: 4px;
+    }
+
+    .index td:first-child {
+      border-left: 3px solid transparent;
+      padding-left: 10px;
+    }
+
+    .index td:nth-child(2) {
+      width: 70%;
+      color: var(--text-normal);
+    }
+
+    .sandbox-table {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .sandbox-table td {
+      padding: 6px;
+    }
+
+    .sandbox-table td:last-child {
+      text-align: center;
+    }
+
+    .detailed.cards {
+      gap: 60px;
+    }
+
+    .detailed.cards p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .detailed.cards h2 {
+      font-size: 24px;
+      color: var(--text-normal);
+      margin-top: 10px;
+      margin-bottom: -4px;
+    }
+
+    .detailed.cards p + p {
+      margin-top: 0;
+    }
+
+    ul, ol {
+      margin-top: 0px;
+      margin-bottom: 16px;
+
+      color: var(--text-normal);
+      font-family: var(--font-normal);
+      font-size: 20px;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 80%;
+      color: var(--text-muted);
+    }
+
+    .usage-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .usage-header code {
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Capybara</h1>
+
+    <div>
+      <a href="https://github.com/OpenAsar/capybara">GitHub</a>
+      <!-- <a href="https://discord.com/invite/neMncS2">Discord</a> -->
+    </div>
+
+    <section class="stats">
+      <h2><svg width="24" height="24" viewBox="0 0 20 20"><g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M9.99999 1.66675C5.39699 1.66675 1.66666 5.39708 1.66666 10.0001C1.66666 14.6031 5.39699 18.3334 9.99999 18.3334C14.603 18.3334 18.3333 14.6031 18.3333 10.0001C18.3333 5.39708 14.603 1.66675 9.99999 1.66675ZM9.99999 4.66675C10.3685 4.66675 10.6667 4.96493 10.6667 5.33342V9.61475L13.8021 11.4272C14.1211 11.6108 14.2252 12.0145 14.0416 12.3335C13.8581 12.6525 13.4544 12.7567 13.1354 12.5731L9.73937 10.6148C9.71333 10.6043 9.68989 10.5874 9.66646 10.5731C9.46724 10.4572 9.33312 10.2463 9.33312 10.0002V5.3335C9.33312 4.965 9.6315 4.66675 9.99999 4.66675Z"></path></g></svg><span style="margin-left: 0" id="stat_1">v2.2.1</span> was released <span id="stat_2">6 days ago</span>
+    </section>
+  </header>
+
+  <article>
+    <h1 class="tagline">Capybara is an alternative for Squirrel, focusing on being robust and minimal whilst easing your migration.</h1>
+    <p>Capybara is an alternative for Squirrel, acting as a mostly drop in replacement for it's Update.exe. It's extremely lightweight and robust as it requires no extra files, just itself. There is no updating in Capybara, it's designed for use in migrations (you need an Update.exe but have your own updating).</p>
+
+    <h2>Features</h2>
+    <section class="cards">
+      <div>
+        <h1>Lightweight</h1>
+        <p>Capybara's exe is under 100KB, so it can be easily downloaded, updated, etc without worrying about data usage.</p>
+      </div>
+
+      <div>
+        <h1>Robust</h1>
+        <p>Capybara requires no other files or folders to keep track of versions or perform any operations, as long as it exists and your app exists, it'll work.</p>
+      </div>
+
+      <div>
+        <h1>Same CLI/API</h1>
+        <p>Capybara features the same CLI as Squirrel's Update.exe, with <code>--processStart</code>, <code>--createShortcut</code>, and more.</p>
+      </div>
+    </section>
+
+    <h2>Supported</h2>
+    <section class="cards detailed">
+      <div>
+        <h1 class="usage-header">Starting <code>--processStart [exePath]</code></h1>
+        <p>Capybara supports starting your app in the same way as Squirrel's Update.exe, via <code>--processStart [exePath]</code>.</p>
+        <p>It will look in the directory it's in for the latest <code>app-[version]</code> directory. It'll pick whichever is highest according to semver. It'll then launch whatever path you gave it inside that directory.</p>
+        <p>You can also give it <code>--process-start-args ...</code> at the end to pass arguments to the executable.</p>
+      </div>
+
+      <div>
+        <h1>Shortcuts</h1>
+        <p>Capybara also supports making shortcuts in the same way as Squirrel's Update.exe, via <code>--createShortcut [exePath]</code> and <code>--removeShortcut</code>.</p>
+
+        <h2 class="usage-header">Creation <code>--createShortcut [exePath]</code></h2>
+        <p>Creates a shortcut in Start Menu with the exe path provided, exact path is picked the same as when starting.</p>
+
+        <h2 class="usage-header">Removal <code>--removeShortcut</code></h2>
+        <p>Removes a previously created shortcut in Start Menu.</p>
+      </div>
+
+      <div>
+        <h1 class="usage-header">Uninstalling <code>--uninstall</code></h1>
+    </section>
+  </article>
+
+  <script> (async () => {
+    const prettyAgo = (timestamp) => {
+      const intervals = [
+        { label: 'year', seconds: 31536000 },
+        { label: 'month', seconds: 2592000 },
+        { label: 'week', seconds: 604800 },
+        { label: 'day', seconds: 86400 },
+        { label: 'hour', seconds: 3600 },
+        { label: 'minute', seconds: 60 },
+        { label: 'second', seconds: 1 }
+      ];
+
+      const seconds = Math.floor((Date.now() - timestamp) / 1000);
+      const interval = intervals.find(i => i.seconds <= seconds);
+      const count = Math.floor(seconds / interval.seconds);
+
+      const rtf = new Intl.RelativeTimeFormat("en", {
+        localeMatcher: 'best fit',
+        numeric: 'auto',
+        style: 'long'
+      });
+
+      return rtf.format(count * -1, interval.label);
+    };
+
+    const releases = await (await fetch(`https://api.github.com/repos/OpenAsar/capybara/releases`)).json();
+    const latest = releases[0];
+
+    stat_1.textContent = latest.name;
+    stat_2.textContent = prettyAgo(new Date(latest.published_at));
+  })();</script>
+</body>
