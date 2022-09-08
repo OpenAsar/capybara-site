@@ -78,7 +78,7 @@
 
       color: var(--header-primary);
 
-      margin-top: 80px;
+      margin-top: 60px;
       margin-bottom: 8px;
     }
 
@@ -523,7 +523,29 @@
 
       <div>
         <h1 class="usage-header">Uninstalling <code>--uninstall</code></h1>
-        <p>Capybara provides uninstalling when ran with <code>--uninstall</code>.</p>
+        <p>Capybara will uninstall your app when ran with <code>--uninstall</code>. It deletes:</p>
+        <ul>
+          <li>Directories</li>
+          <ul>
+            <li>AppData directory for your app</li>
+            <lI>Directory that Capybara is in</lI>
+          </ul>
+
+          <li>Registry values (for your app, if they exist)</li>
+          <ul>
+            <li>Run on startup</li>
+            <li>Protocol</li>
+            <li>Uninstall program entry</li>
+          </ul>
+
+          <li>Shortcuts (if they exist)</li>
+          <ul>
+            <li>Start menu</li>
+            <li>Desktop</li>
+          </ul>
+        </ul>
+
+        <p>More detailed docs and exact paths can be found <a href="https://github.com/OpenAsar/capybara">in the repo</a>.</p>
     </section>
   </article>
 
